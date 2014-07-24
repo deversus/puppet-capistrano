@@ -1,6 +1,6 @@
 {
   "name": "deversus-capistrano",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "author": "Ruy Asan",
   "summary": "Setup a basic deployment target for the Rails deploy tool capistrano",
   "license": "MIT",
@@ -15,7 +15,7 @@
   "dependencies": [
     {
       "name": "puppetlabs-stdlib",
-      "version_range": ">= 4.1.0"
+      "version_requirement": ">= 4.1.0"
     }
   ]
 }
