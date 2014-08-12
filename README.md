@@ -14,6 +14,8 @@ Requests & patches welcome.
 
 
 ```puppet
+include capistrano
+
 capistrano::deploytarget {'myapp':
     deploy_user    => 'capistrano',
     share_group    => 'puma',
