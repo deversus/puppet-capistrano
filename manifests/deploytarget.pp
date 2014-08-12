@@ -6,6 +6,7 @@ define capistrano::deploytarget (
 	$deploy_dir 	= sprintf($capistrano::deploy_dir_spf, $title),
 	$shared_dirs 	= $capistrano::shared_dirs,
 ) {
+	include capistrano
 	$shared_dir 	= sprintf($capistrano::shared_dir_spf, $title)
 	$releases_dir 	= sprintf($capistrano::releases_dir_spf, $title)
 	
