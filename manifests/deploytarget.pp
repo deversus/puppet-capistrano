@@ -8,16 +8,20 @@ define capistrano::deploytarget (
 ) {
 	$shared_dir 	= sprintf($capistrano::shared_dir_spf, $title)
 	$releases_dir 	= sprintf($capistrano::releases_dir_spf, $title)
-	
+
 	ensure_resource('user',  $deploy_user, {
 		ensure => present,
 	})
-	ensure_resource('group',  $share_group, {
-		ensure => present,
-	})
+
+	if $share_group {
+		ensure_resource('group',  $share_group, {
+			ensure => present,
+		})
+	}
+
 
 	$full_shared_dirs = prefix($shared_dirs, "$shared_dir/")
-	
+
 	file { [
 		$deploy_dir,
 		$shared_dir,
@@ -29,7 +33,11 @@ define capistrano::deploytarget (
 		mode => $capistrano::default_dir_mode,
 	}
 
-	File[$full_shared_dirs] {
+	if $share_group {
+		File[$full_shared_dirs] {
 		group => $share_group,
+		require => [Group[$share_group]],
 	}
+	}
+
 }
