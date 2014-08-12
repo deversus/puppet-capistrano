@@ -1,6 +1,6 @@
 {
   "name": "deversus-capistrano",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "author": "Ruy Asan",
   "summary": "Setup a basic deployment target for the Rails deploy tool capistrano",
   "license": "MIT",
