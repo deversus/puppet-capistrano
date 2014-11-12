@@ -53,7 +53,7 @@ define capistrano::deploytarget (
 			# Handled differently as the actual server (puma etc) will also try
 			# and manage this location
 			$pids_dir = undef
-			$_pids_dir = "/var/$title/pids"
+			$_pids_dir = ["/var/$title", "/var/$title/pids"]
 
 			# Specific ownership is best left to the server's manifest
 			ensure_resource('file', $_pids_dir, {
@@ -61,7 +61,7 @@ define capistrano::deploytarget (
 			})
 			file {"$shared_dir/$pids_loc":
 				ensure => link,
-				target => $_pids_dir
+				target => "/var/$title/pids"
 			}
 		} else {
 			$pids_dir = "$shared_dir/$pids_loc"
@@ -70,10 +70,15 @@ define capistrano::deploytarget (
 
 	if $cache_loc in $shared_dirs {
 		if $symlink_shared_system_dirs {
-			$cache_dir = ["/tmp/$title", "/tmp/$title/cache"]
+			$cache_dir = undef
+			$_cache_dir = ["/var/$title", "/var/$title/cache"]
+			ensure_resource('file', $_cache_dir, {
+				ensure => directory
+			})
+
 			file {"$shared_dir/$cache_loc":
 				ensure => link,
-				target => "/tmp/$title/cache",
+				target => "/var/$title/cache",
 			}
 		} else {
 			$cache_dir = "$shared_dir/$cache_loc"
