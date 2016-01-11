@@ -7,9 +7,9 @@ define capistrano::deploytarget (
 	$shared_dirs 	= $capistrano::shared_dirs,
 	$symlink_shared_system_dirs = $capistrano::symlink_shared_system_dirs,
 	$cap_version = $capistrano::cap_version,
+	$shared_dir 	= sprintf($capistrano::shared_dir_spf, $title),
+	$releases_dir 	= sprintf($capistrano::releases_dir_spf, $title),
 ) {
-	$shared_dir 	= sprintf($capistrano::shared_dir_spf, $title)
-	$releases_dir 	= sprintf($capistrano::releases_dir_spf, $title)
 
 	ensure_resource('user',  $deploy_user, {
 		ensure => present,
